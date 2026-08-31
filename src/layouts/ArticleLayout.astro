@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatDate, readingTime, wordCount, type Post } from '../utils/posts';
+import { sitePath } from '../utils/urls';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const minutes = readingTime(post.body ?? '');
+const words = wordCount(post.body ?? '');
+---
+
+<BaseLayout title={post.data.title} description={post.data.summary} type="article">
+  <article class="article">
+    <header class="article-header">
+      <a class="back-link" href={sitePath('/posts/')}>所有文章</a>
+      <h1>{post.data.title}</h1>
+      <p class="article-summary">{post.data.summary}</p>
+      <div class="article-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span>{words} 字</span>
+        <span>{minutes} 分钟阅读</span>
+      </div>
+      <ul class="article-tags" aria-label="文章标签">
+        {post.data.tags.map((tag) => (
+          <li><a href={sitePath(`/tags/${encodeURIComponent(tag)}/`)}>#{tag}</a></li>
+        ))}
+      </ul>
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

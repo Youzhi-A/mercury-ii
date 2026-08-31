@@ -1,0 +1,13 @@
+---
+import { sitePath } from '../utils/urls';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <p>© {year} Mercury II</p>
+  <div class="footer-links">
+    <a href={sitePath('/rss.xml')}>RSS</a>
+    <a href={sitePath('/llms.txt')}>llms.txt</a>
+  </div>
+</footer>

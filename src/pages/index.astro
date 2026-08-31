@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import { publishedPosts } from '../utils/posts';
+import { sitePath } from '../utils/urls';
+
+const posts = publishedPosts(await getCollection('posts'));
+---
+
+<BaseLayout>
+  <section class="home-intro">
+    <div class="intro-copy">
+      <p class="kicker">PERSONAL ARCHIVE</p>
+      <h1>水卫二<br /><span>Mercury II</span></h1>
+    </div>
+  </section>
+
+  <section class="latest-section" aria-labelledby="latest-heading">
+    <div class="section-title">
+      <h2 id="latest-heading">最近写下</h2>
+      <a href={sitePath('/posts/')}>查看全部</a>
+    </div>
+    <PostList posts={posts.slice(0, 5)} />
+  </section>
+
+</BaseLayout>

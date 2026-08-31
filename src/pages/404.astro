@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { sitePath } from '../utils/urls';
+---
+
+<BaseLayout title="404" description="没有找到这个页面。">
+  <section class="not-found">
+    <p>404</p>
+    <h1>信号没有抵达这里。</h1>
+    <a href={sitePath('/')}>返回水卫二</a>
+  </section>
+</BaseLayout>

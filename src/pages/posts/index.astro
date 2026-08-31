@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { publishedPosts } from '../../utils/posts';
+
+const posts = publishedPosts(await getCollection('posts'));
+---
+
+<BaseLayout title="文章" description="水卫二的全部文章。">
+  <header class="page-header">
+    <h1>文章</h1>
+  </header>
+  <PostList posts={posts} />
+</BaseLayout>

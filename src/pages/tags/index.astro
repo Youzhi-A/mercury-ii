@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedPosts } from '../../utils/posts';
+import { sitePath } from '../../utils/urls';
+
+const posts = publishedPosts(await getCollection('posts'));
+const tagCounts = new Map<string, number>();
+posts.forEach((post) => post.data.tags.forEach((tag) => tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)));
+const tags = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[0], 'zh-CN'));
+---
+
+<BaseLayout title="标签" description="按标签浏览水卫二的文章。">
+  <header class="page-header">
+    <h1>标签</h1>
+  </header>
+  <ul class="tag-index">
+    {tags.map(([tag, count]) => (
+      <li>
+        <a href={sitePath(`/tags/${encodeURIComponent(tag)}/`)} title={tag}>
+          <span>{tag}</span>
+          <small aria-label={`${count} 篇文章`}>{count}</small>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

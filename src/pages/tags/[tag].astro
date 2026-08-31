@@ -1,0 +1,32 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { publishedPosts } from '../../utils/posts';
+import { sitePath } from '../../utils/urls';
+
+export async function getStaticPaths() {
+  const posts = publishedPosts(await getCollection('posts'));
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag, posts: posts.filter((post) => post.data.tags.includes(tag)) },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: CollectionEntry<'posts'>[];
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`标签：${tag}`} description={`水卫二中标记为“${tag}”的文章。`}>
+  <header class="page-header tag-page-header">
+    <a class="back-link" href={sitePath('/tags/')}>全部标签</a>
+    <h1>#{tag}</h1>
+    <p>{posts.length} 篇文章</p>
+  </header>
+  <PostList posts={posts} />
+</BaseLayout>

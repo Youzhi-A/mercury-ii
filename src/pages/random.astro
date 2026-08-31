@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { publishedPosts } from '../utils/posts';
+import { sitePath } from '../utils/urls';
+
+const posts = publishedPosts(await getCollection('posts'));
+const destinations = posts.map((post) => sitePath(`/posts/${post.id}/`));
+const fallback = sitePath('/posts/');
+---
+
+<BaseLayout title="随机文章">
+  <script is:inline define:vars={{ destinations, fallback }}>
+    const index = Math.floor(Math.random() * destinations.length);
+    window.location.replace(destinations[index] ?? fallback);
+  </script>
+</BaseLayout>

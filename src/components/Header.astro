@@ -1,0 +1,35 @@
+---
+import { sitePath } from '../utils/urls';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: sitePath('/posts/'), label: '文章' },
+  { href: sitePath('/tags/'), label: '标签' },
+  { href: sitePath('/random/'), label: '随机文章' },
+  { href: sitePath('/about/'), label: '关于' },
+];
+---
+
+<header class="site-header">
+  <a class="wordmark" href={sitePath('/')} aria-label="水卫二首页">
+    <img
+      class="wordmark-mark"
+      src={sitePath('/images/mercury-ii-mark.png')}
+      width="155"
+      height="155"
+      alt=""
+      aria-hidden="true"
+    />
+    <span class="wordmark-text">
+      <span class="wordmark-cn">水卫二</span>
+      <span class="wordmark-en">Mercury II</span>
+    </span>
+  </a>
+  <nav aria-label="主导航">
+    {links.map((link) => (
+      <a href={link.href} aria-current={path.startsWith(link.href) ? 'page' : undefined}>
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
