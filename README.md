@@ -27,7 +27,7 @@ title: 文章标题
 date: 2026-08-30
 tags:
   - 标签
-summary: 一句话摘要
+description: 一句话描述
 ---
 ```
 

@@ -21,7 +21,7 @@ const { posts, empty = '这里暂时还没有文章。' } = Astro.props;
           <time class="post-date" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
           <div class="post-copy">
             <h2>{post.data.title}</h2>
-            <p>{post.data.summary}</p>
+            <p>{post.data.description}</p>
             <ul class="inline-tags" aria-label="文章标签">
               {post.data.tags.map((tag) => <li>{tag}</li>)}
             </ul>

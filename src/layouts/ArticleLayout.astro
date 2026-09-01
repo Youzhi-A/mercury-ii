@@ -12,12 +12,12 @@ const minutes = readingTime(post.body ?? '');
 const words = wordCount(post.body ?? '');
 ---
 
-<BaseLayout title={post.data.title} description={post.data.summary} type="article">
+<BaseLayout title={post.data.title} description={post.data.description} type="article">
   <article class="article">
     <header class="article-header">
       <a class="back-link" href={sitePath('/posts/')}>所有文章</a>
       <h1>{post.data.title}</h1>
-      <p class="article-summary">{post.data.summary}</p>
+      <p class="article-summary">{post.data.description}</p>
       <div class="article-meta">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
         <span>{words} 字</span>

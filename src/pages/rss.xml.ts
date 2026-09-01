@@ -12,7 +12,7 @@ export async function GET(context: { site: URL }) {
     site: new URL(sitePath('/'), context.site),
     items: posts.map((post) => ({
       title: post.data.title,
-      description: post.data.summary,
+      description: post.data.description,
       pubDate: post.data.date,
       link: sitePath(`/posts/${post.id}/`),
       categories: post.data.tags,

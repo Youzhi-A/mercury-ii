@@ -24,7 +24,7 @@ export async function GET(context: { site: URL }) {
     '',
     '## 文章',
     '',
-    ...posts.map((post) => `- [${post.data.title}](${absolute(`/posts/${post.id}/`)}): ${post.data.summary}`),
+    ...posts.map((post) => `- [${post.data.title}](${absolute(`/posts/${post.id}/`)}): ${post.data.description}`),
     '',
   ].join('\n');
 
