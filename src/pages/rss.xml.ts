@@ -15,7 +15,7 @@ export async function GET(context: { site: URL }) {
       description: post.data.description,
       pubDate: post.data.date,
       link: sitePath(`/posts/${post.id}/`),
-      categories: post.data.tags,
+      categories: [post.data.category, ...post.data.tags],
     })),
     customData: '<language>zh-CN</language>',
   });

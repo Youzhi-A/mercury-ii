@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CATEGORIES, formatDate, publishedPosts } from '../../utils/posts';
+import { sitePath } from '../../utils/urls';
+
+const posts = publishedPosts(await getCollection('posts'));
+const categoryGroups = CATEGORIES.map((category) => ({
+  category,
+  posts: posts.filter((post) => post.data.category === category),
+}));
+const years = [...new Set(posts.map((post) => post.data.date.getFullYear()))].sort((a, b) => b - a);
+---
+
+<BaseLayout title="目录">
+  <header class="page-header">
+    <h1>目录</h1>
+  </header>
+
+  <div class="catalog-page">
+    <nav class="catalog-jump" aria-label="栏目">
+      <ul>
+        {categoryGroups.map(({ category, posts: categoryPosts }) => (
+          <li>
+            <a href={`#category-${encodeURIComponent(category)}`}>
+              <span>{category}</span>
+              <small>{categoryPosts.length}</small>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <section class="catalog-section" aria-labelledby="catalog-category-heading">
+      <h2 id="catalog-category-heading">栏目</h2>
+      {categoryGroups.map(({ category, posts: categoryPosts }) => (
+        <section class="catalog-group" id={`category-${category}`}>
+          <header>
+            <h3>{category}</h3>
+            <span>{categoryPosts.length} 篇</span>
+          </header>
+          <ul class="catalog-list">
+            {categoryPosts.map((post) => (
+              <li>
+                <a href={sitePath(`/posts/${post.id}/`)}>
+                  <span>{post.data.title}</span>
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </section>
+
+    <section class="catalog-section catalog-years" aria-labelledby="catalog-year-heading">
+      <h2 id="catalog-year-heading">年份</h2>
+      {years.map((year) => {
+        const yearPosts = posts.filter((post) => post.data.date.getFullYear() === year);
+        return (
+          <section class="catalog-group" id={`year-${year}`}>
+            <header>
+              <h3>{year}</h3>
+              <span>{yearPosts.length} 篇</span>
+            </header>
+            <ul class="catalog-list">
+              {yearPosts.map((post) => (
+                <li>
+                  <a href={sitePath(`/posts/${post.id}/`)}>
+                    <span>{post.data.title}</span>
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </section>
+  </div>
+</BaseLayout>

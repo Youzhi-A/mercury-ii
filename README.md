@@ -25,11 +25,14 @@ npm run build
 ---
 title: 文章标题
 date: 2026-08-30
+category: 随想
 tags:
   - 标签
 description: 一句话描述
 ---
 ```
+
+`category` 只能填写 `随想`、`随笔` 或 `小论文`，每篇文章选择一个；`tags` 可以填写多个主题标签。
 
 文件名会成为文章 URL。需要暂不发布时添加 `draft: true`。
 

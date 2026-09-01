@@ -2,6 +2,8 @@ import type { CollectionEntry } from 'astro:content';
 
 export type Post = CollectionEntry<'posts'>;
 
+export const CATEGORIES = ['随想', '随笔', '小论文'] as const;
+
 export function publishedPosts(posts: Post[]) {
   return posts
     .filter((post) => !post.data.draft)

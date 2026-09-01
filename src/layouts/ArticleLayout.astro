@@ -20,6 +20,7 @@ const words = wordCount(post.body ?? '');
       <p class="article-summary">{post.data.description}</p>
       <div class="article-meta">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <a href={`${sitePath('/catalog/')}#category-${encodeURIComponent(post.data.category)}`}>{post.data.category}</a>
         <span>{words} 字</span>
         <span>{minutes} 分钟阅读</span>
       </div>

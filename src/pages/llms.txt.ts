@@ -18,6 +18,7 @@ export async function GET(context: { site: URL }) {
     `- [首页](${absolute('/')})`,
     `- [About](${absolute('/about/')})`,
     `- [文章](${absolute('/posts/')})`,
+    `- [目录](${absolute('/catalog/')})`,
     `- [标签](${absolute('/tags/')})`,
     `- [随机文章](${absolute('/random/')})`,
     `- [RSS](${absolute('/rss.xml')})`,

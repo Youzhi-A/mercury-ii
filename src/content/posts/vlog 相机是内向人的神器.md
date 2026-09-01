@@ -1,6 +1,7 @@
 ---
 title: 说不定 vlog 相机是内向人的神器？
 date: 2025-05-20
+category: 随想
 tags:
   - 生活
   - 消费

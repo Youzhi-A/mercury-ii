@@ -22,7 +22,8 @@ const { posts, empty = '这里暂时还没有文章。' } = Astro.props;
           <div class="post-copy">
             <h2>{post.data.title}</h2>
             <p>{post.data.description}</p>
-            <ul class="inline-tags" aria-label="文章标签">
+            <ul class="inline-tags" aria-label="文章栏目和标签">
+              <li class="post-category">{post.data.category}</li>
               {post.data.tags.map((tag) => <li>{tag}</li>)}
             </ul>
           </div>

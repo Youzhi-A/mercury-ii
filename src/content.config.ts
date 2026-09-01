@@ -7,6 +7,7 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    category: z.enum(['随想', '随笔', '小论文']),
     tags: z.array(z.string()).min(1),
     description: z.string(),
     draft: z.boolean().default(false),
